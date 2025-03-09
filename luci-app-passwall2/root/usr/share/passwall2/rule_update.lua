@@ -17,8 +17,8 @@ local geosite_update = 0
 local asset_location = uci:get_first(name, 'global_rules', "v2ray_location_asset", "/usr/share/v2ray/")
 
 -- Custom geo file
-local geoip_api = uci:get_first(name, 'global_rules', "geoip_url", "https://api.github.com/repos/Loyalsoldier/v2ray-rules-dat/releases/latest")
-local geosite_api = uci:get_first(name, 'global_rules', "geosite_url", "https://api.github.com/repos/Loyalsoldier/v2ray-rules-dat/releases/latest")
+local geoip_api = uci:get_first(name, 'global_rules', "geoip_url", "https://api.github.com/repos/runetfreedom/russia-v2ray-rules-dat/releases/latest")
+local geosite_api = uci:get_first(name, 'global_rules', "geosite_url", "https://api.github.com/repos/runetfreedom/russia-v2ray-rules-dat/releases/latest")
 --
 local use_nft = uci:get(name, "@global_forwarding[0]", "use_nft") or "0"
 
