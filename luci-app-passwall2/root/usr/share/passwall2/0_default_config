@@ -55,12 +55,6 @@ config global_app
 
 config global_subscribe
 	option filter_keyword_mode '1'
-	list filter_discard_list '距离下次重置剩余'
-	list filter_discard_list '套餐到期'
-	list filter_discard_list '过期时间'
-	list filter_discard_list '剩余流量'
-	list filter_discard_list 'QQ群'
-	list filter_discard_list '官网'
 	
 config global_singbox
 	option sniff_override_destination '0'
@@ -70,48 +64,41 @@ config global_singbox
 	option geosite_url 'https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.db'
 
 config nodes 'myshunt'
-	option remarks '分流总节点'
+	option remarks 'Main shunt'
 	option type 'Xray'
 	option protocol '_shunt'
+	option Block '_blackhole'
+	option Zapret '_direct'
 	option DirectGame '_direct'
 	option ProxyGame '_default'
 	option Direct '_direct'
 	option GooglePlay '_default'
 	option Proxy '_default'
-	option China '_direct'
+	option Russia '_direct'
 	option QUIC '_blackhole'
 	option default_node '_direct'
 	option domainStrategy 'IPOnDemand'
 	option domainMatcher 'hybrid'
 
+config shunt_rules 'Block'
+	option remarks 'Block'
+	option network 'tcp,udp'
+	option domain_list '# Ads
+geosite:category-ads-all
+# Spy
+geosite:win-spy'
+
+config shunt_rules 'Zapret'
+	option remarks 'Zapret'
+	option network 'tcp,udp'
+
 config shunt_rules 'DirectGame'
 	option remarks 'DirectGame'
 	option network 'tcp,udp'
-	option domain_list '# steam直连域名获取国内CDN走国内线路下载
+	option domain_list '# steam CDN
 cm.steampowered.com
 steamserver.net
-
-# steam国内CDN华为云
-steampipe.steamcontent.tnkjmec.com
-# steam国内CDN白山云
-st.dl.eccdnx.com
-st.dl.bscstorage.net
-st.dl.pinyuncloud.com
-# steam国内CDN新流云(原金山云)(支持ipv6)
-dl.steam.clngaa.com
-# steam国内CDN网宿
-cdn.mileweb.cs.steampowered.com.8686c.com
-cdn-ws.content.steamchina.com
-# steam国内CDN腾讯云 (蒸汽中国独占)
-cdn-qc.content.steamchina.com
-# steam国内CDN阿里云(支持ipv6)
-cdn-ali.content.steamchina.com
-xz.pphimalayanrt.com
-lv.queniujq.cn
-alibaba.cdn.steampipe.steamcontent.com
-
-# 国内游戏geosite域名
-geosite:category-games@cn
+geosite:category-games@ru
 '
 
 	option ip_list '# steam直连IP
@@ -212,9 +199,7 @@ epicgames-download1-1251447533.file.myqcloud.com'
 config shunt_rules 'GooglePlay'
 	option remarks 'GooglePlay'
 	option network 'tcp,udp'
-	option domain_list 'domain:googleapis.cn
-domain:googleapis.com
-domain:xn--ngstr-lra8j.com'
+	option domain_list 'domain:googleapis.com'
 
 config shunt_rules 'Netflix'
 	option remarks 'Netflix'
@@ -229,7 +214,7 @@ config shunt_rules 'OpenAI'
 config shunt_rules 'Proxy'
 	option network 'tcp,udp'
 	option remarks 'Proxy'
-	option domain_list 'geosite:geolocation-!cn'
+	option domain_list 'geosite:ru-blocked'
 	option ip_list '149.154.160.0/20
 91.108.4.0/22
 91.108.56.0/24
@@ -255,11 +240,12 @@ config shunt_rules 'Proxy'
 2606:4700:4700::1001
 '
 
-config shunt_rules 'China'
-	option remarks 'China'
+config shunt_rules 'Russia'
+	option remarks 'Russia'
 	option network 'tcp,udp'
-	option ip_list 'geoip:cn'
-	option domain_list 'geosite:cn'
+	option ip_list 'geoip:ru'
+	option domain_list 'geosite:ru
+geosite:ru-available-only-inside'
 
 config shunt_rules 'QUIC'
 	option remarks 'QUIC'
